@@ -136,6 +136,14 @@
       <events/>
     </node>
     <!---->
+    <node class="Task" type="Decorator" name="If">
+      <children class="Task" use="yes"/>
+      <children class="Condition" use="yes"/>
+      <description text="Just passes the result of the child."/>
+      <shape name="triangle"/>
+      <events/>
+    </node>
+    <!---->
     <node class="Task" type="Leaf" name="Leash">
       <children class="Task" use="no"/>
       <children class="Condition" use="no"/>
@@ -205,8 +213,8 @@
       <children class="Condition" use="no"/>
       <description text="Runs distance dist modified by aggro radius and aggroMod (from blackboard) away from targetProspect on blackboard. Fails only if targetProspect isn't available."/>
       <shape name="ring"/>
-      <attribute type="float" name="dist" default="0" description="Distance to run."/>
       <events/>
+      <attribute type="float" name="dist" description="Distance to run."/>
     </node>
     <!---->
     <node class="Task" type="Leaf" name="SelectAttack">
@@ -214,8 +222,8 @@
       <children class="Condition" use="no"/>
       <description text="Reads attackType from blackboard to select an attack to use. If attackType is DEFAULT, attempt to select a default attack. If attackType is RANDOM, attempt to select a special attack. If attackType is not written on the blackboard, use the attackNum (default of -1) to attempt a selection. Succeeds if an attack was set."/>
       <shape name="ring"/>
-      <attribute type="int" name="attackNum" description="Optional specification for attackNum"/>
       <events/>
+      <attribute type="int" name="attackNum" description="Optional specification for attackNum"/>
     </node>
     <!---->
     <node class="Task" type="Composite" name="Selector">
@@ -239,9 +247,9 @@
       <children class="Condition" use="no"/>
       <description text="Sets self to be alert for duration. Always succeeds."/>
       <shape name="ring"/>
-      <attribute type="float" name="duration" default="0" description="Seconds to be alert. Should be positive."/>
-      <attribute type="bool" name="show" default="true" description="Show alert flytext?"/>
       <events/>
+      <attribute type="float" name="duration" description="Seconds to be alert. Should be positive."/>
+      <attribute type="bool" name="show" default="True" description="Show alert flytext?"/>
     </node>
     <!---->
     <node class="Task" type="Leaf" name="SetDefenderFromProspect">
@@ -257,8 +265,8 @@
       <children class="Condition" use="no"/>
       <description text="Sets the follow state to state. Fails if targetProspect is not written to the blackboard and tries to set WATCHING, STALKING, or FOLLOWING."/>
       <shape name="ring"/>
-      <attribute type="string" name="state" default="OBLIVIOUS" available="OBLIVIOUS;WATCHING;STALKING;FOLLOWING;PATROLLING;FLEEING;LEASHING" description="Follow state enumerations."/>
       <events/>
+      <attribute type="text" name="state" default="OBLIVIOUS" available="OBLIVIOUS;WATCHING;STALKING;FOLLOWING;PATROLLING;FLEEING;LEASHING" description="Follow state enumerations."/>
     </node>
     <!---->
     <node class="Task" type="Leaf" name="TreeSocket">
@@ -267,6 +275,7 @@
       <description text="Holds modular reference to entire tree."/>
       <shape name="hexagon"/>
       <events/>
+      <attribute type="text" name="slot" default="NONE" available="NONE|NONE;AWARE;IDLE;ATTACK;EQUIP;TARGET;MOVE;LOOKAT;AGGRO;SCARE" description=""/>
     </node>
     <!---->
     <node class="Task" type="Decorator" name="UntilFailure">
@@ -298,8 +307,8 @@
       <children class="Condition" use="no"/>
       <description text="Attempts to set a wait for the duration. Implicitly writes isWaiting of true to blackboard, and erases it when called again and completed. Returns RUNNING while waiting and SUCCESS once the wait has completed."/>
       <shape name="ring"/>
-      <attribute type="float" name="duration" default="0" description="Seconds to wait. A negative value means indefinite."/>
       <events/>
+      <attribute type="float" name="duration" description="Seconds to wait. A negative value means indefinite."/>
     </node>
     <!---->
     <node class="Task" type="Leaf" name="WriteBlackboard">
@@ -309,7 +318,7 @@
       <shape name="ring"/>
       <events/>
       <attribute type="string" name="key" description="Key to store on the blackboard."/>
-      <attribute type="string" name="val" description="Value to store under key -- this should be an available enum value. TODO -- add all available enumerations?"/>
+      <attribute type="text" name="val" description="Value to store under key -- this should be an available enum value. TODO -- add all available enumerations?"/>
     </node>
     <!---->
     <!-- ********************************************************************************************************* -->
@@ -353,7 +362,7 @@
       <description text="Returns SUCCESS if the condition's ideal range is greater than the followRange written to the blackboard."/>
       <shape name="diamond"/>
       <events/>
-      <attribute type="string" name="condition" default="DEFAULT" available="WEAPON;DEFAULT;RANDOM" description="Weapon enumerations."/>
+      <attribute type="text" name="condition" default="DEFAULT" available="WEAPON;DEFAULT;RANDOM" description="Weapon enumerations."/>
     </node>
     <!---->
     <node class="Condition" type="Single" name="CheckFollowHasState">
@@ -362,7 +371,7 @@
       <description text="Returns SUCCESS if the follow object's creature state is the same as condition."/>
       <shape name="diamond"/>
       <events/>
-      <attribute type="string" name="condition" default="PEACE" available="INVALID;COVER;COMBAT;PEACE;AIMING;ALERT;BERSERK;FEIGNDEATH;COMBATATTITUDEEVASIVE;COMBATATTITUDENORMAL;COMBATATTITUDEAGGRESSIVE;TUMBLING;RALLIED;STUNNED;BLINDED;DIZZYINTIMIDATED;IMMOBILIZED;FROZEN;SWIMMING;SITTINGONCHAIR;CRAFTING;GLOWINGJEDI;MASKSCENT;POISONED;BLEEDING;DISEASED;ONFIRE;RIDINGMOUNT;MOUNTEDCREATURE;PILOTINGSHIP;SHIPOPERATIONS;SHIPGUNNER;SHIPINTERIOR;PILOTINGPOBSHIP" description="Creature state enumerations."/>
+      <attribute type="text" name="condition" default="PEACE" available="INVALID;COVER;COMBAT;PEACE;AIMING;ALERT;BERSERK;FEIGNDEATH;COMBATATTITUDEEVASIVE;COMBATATTITUDENORMAL;COMBATATTITUDEAGGRESSIVE;TUMBLING;RALLIED;STUNNED;BLINDED;DIZZYINTIMIDATED;IMMOBILIZED;FROZEN;SWIMMING;SITTINGONCHAIR;CRAFTING;GLOWINGJEDI;MASKSCENT;POISONED;BLEEDING;DISEASED;ONFIRE;RIDINGMOUNT;MOUNTEDCREATURE;PILOTINGSHIP;SHIPOPERATIONS;SHIPGUNNER;SHIPINTERIOR;PILOTINGPOBSHIP" description="Creature state enumerations."/>
     </node>
     <!---->
     <node class="Condition" type="Single" name="CheckFollowInWeaponRange">
@@ -371,7 +380,7 @@
       <description text="Returns SUCCESS if the condition's maximum range is greater than the followRange written to the blackboard."/>
       <shape name="diamond"/>
       <events/>
-      <attribute type="string" name="condition" default="DEFAULT" available="WEAPON;DEFAULT;RANDOM" description="Weapon enumerations."/>
+      <attribute type="text" name="condition" default="DEFAULT" available="WEAPON;DEFAULT;RANDOM" description="Weapon enumerations."/>
     </node>
     <!---->
     <node class="Condition" type="Single" name="CheckFollowPosture">
@@ -380,7 +389,7 @@
       <description text="Returns SUCCESS if follow posture is the same as condition."/>
       <shape name="diamond"/>
       <events/>
-      <attribute type="string" name="condition" default="UPRIGHT" available="INVALID;UPRIGHT;CROUCHED;PRONE;SNEAKING;BLOCKING;CLIMBING;FLYING;LYINGDOWN;SITTING;SKILLANIMATING;DRIVINGVEHICLE;RIDINGCREATURE;KNOCKEDDOWN;INCAPACITATED;DEAD" description="Posture enumerations."/>
+      <attribute type="text" name="condition" default="UPRIGHT" available="INVALID;UPRIGHT;CROUCHED;PRONE;SNEAKING;BLOCKING;CLIMBING;FLYING;LYINGDOWN;SITTING;SKILLANIMATING;DRIVINGVEHICLE;RIDINGCREATURE;KNOCKEDDOWN;INCAPACITATED;DEAD" description="Posture enumerations."/>
     </node>
     <!---->
     <node class="Condition" type="Single" name="CheckFollowState">
@@ -389,7 +398,7 @@
       <description text="Returns SUCCESS if follow state is the same as condition."/>
       <shape name="diamond"/>
       <events/>
-      <attribute type="string" name="condition" default="OBLIVIOUS" available="OBLIVIOUS;WATCHING;STALKING;FOLLOWING;PATROLLING;FLEEING;LEASHING" description="Follow state enumerations."/>
+      <attribute type="text" name="condition" default="OBLIVIOUS" available="OBLIVIOUS;WATCHING;STALKING;FOLLOWING;PATROLLING;FLEEING;LEASHING" description="Follow state enumerations."/>
     </node>
     <!---->
     <node class="Condition" type="Single" name="CheckHasFollow">
@@ -422,7 +431,7 @@
       <description text="Checks the last command given to self was condition. Returns false if self is not a pet."/>
       <shape name="diamond"/>
       <events/>
-      <attribute type="string" name="condition" default="PET_FOLLOW" available="PET_FOLLOW;PET_STORE;PET_ATTACK;PET_GUARD;PET_FRIEND;PET_FOLLOWOTHER;PET_TRICK1;PET_TRICK2;PET_PATROL;PET_FORMATION1;PET_FORMATION2;PET_SPECIAL_ATTACK1;PET_SPECIAL_ATTACK2;PET_RANGED_ATTACK;PET_GROUP;PET_STAY;PET_RECHARGEOTHER;PET_TRANSFER;PET_THROW" description="Pet command enumerations."/>
+      <attribute type="text" name="condition" default="PET_FOLLOW" available="PET_FOLLOW;PET_STORE;PET_ATTACK;PET_GUARD;PET_FRIEND;PET_FOLLOWOTHER;PET_TRICK1;PET_TRICK2;PET_PATROL;PET_FORMATION1;PET_FORMATION2;PET_SPECIAL_ATTACK1;PET_SPECIAL_ATTACK2;PET_RANGED_ATTACK;PET_GROUP;PET_STAY;PET_RECHARGEOTHER;PET_TRANSFER;PET_THROW" description="Pet command enumerations."/>
     </node>
     <!---->
     <node class="Condition" type="Single" name="CheckPosture">
@@ -431,7 +440,7 @@
       <description text="Returns SUCCESS if postures is the same as condition."/>
       <shape name="diamond"/>
       <events/>
-      <attribute type="string" name="condition" default="UPRIGHT" available="INVALID;UPRIGHT;CROUCHED;PRONE;SNEAKING;BLOCKING;CLIMBING;FLYING;LYINGDOWN;SITTING;SKILLANIMATING;DRIVINGVEHICLE;RIDINGCREATURE;KNOCKEDDOWN;INCAPACITATED;DEAD" description="Posture enumerations."/>
+      <attribute type="text" name="condition" default="UPRIGHT" available="INVALID;UPRIGHT;CROUCHED;PRONE;SNEAKING;BLOCKING;CLIMBING;FLYING;LYINGDOWN;SITTING;SKILLANIMATING;DRIVINGVEHICLE;RIDINGCREATURE;KNOCKEDDOWN;INCAPACITATED;DEAD" description="Posture enumerations."/>
     </node>
     <!---->
     <node class="Condition" type="Single" name="CheckProspectAggression">

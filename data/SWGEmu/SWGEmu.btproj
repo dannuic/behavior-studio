@@ -3,5 +3,5 @@
 	<alphabet path="../../config/behavior_alphabet.xml"/>
 	<shapelib path="../../config/diagram_shapes.xml"/>
 	<library path="node_library.xml"/>
-	<behavior_tree path="trees/default"/>
+	<behavior_tree path="trees/default.xml"/>
 </btproject>
