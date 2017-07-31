@@ -1,0 +1,525 @@
+<?xml version='1.0' encoding='utf-8'?>
+<LibData version="1.3.0">
+  <!-- ====================================================================================================================== -->
+  <library name="SWGEmuNodes">
+    <!-- ********************************************************************************************************* -->
+    <!-- TASKS -->
+    <node class="Task" type="Leaf" name="TreeSocket">
+      <children class="Task" use="yes"/>
+      <children class="Condition" use="no"/>
+      <description text="Holds modular reference to entire tree."/>
+      <shape name="hexagon"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Composite" name="Selector">
+      <children class="Task" use="yes"/>
+      <children class="Condition" use="no"/>
+      <description text="Tries to execute the first child and if it finishes with state SUCCESS then Selector finishes with state SUCCESS too. Otherwise, it selects the next child and launches it, and so on. If all children fail then Selector fails too."/>
+      <shape name="selector"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Composite" name="ParallelSelector">
+      <children class="Task" use="yes"/>
+      <children class="Condition" use="no"/>
+      <description text="Tries to execute all of its children simultaneously. If all of the children fail, then ParallelSelector fails too."/>
+      <shape name="parallel_selector"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Composite" name="RandomSelector">
+      <children class="Task" use="yes"/>
+      <children class="Condition" use="no"/>
+      <description text="Tries to execute a random child and if it finishes with state SUCCESS then RandomSelector finishes with state SUCCESS too. Otherwise, it selects another (unselected) child and launches it, and so on. If all children fail then RandomSelector fails too."/>
+      <shape name="random_selector"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Composite" name="Sequence">
+      <children class="Task" use="yes"/>
+      <children class="Condition" use="no"/>
+      <description text="Tries to execute the first child and if it finishes with SUCCESS, then tries to execute the next child, and so on. If any child fails then Sequence fails too."/>
+      <shape name="sequence"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Composite" name="ParallelSequence">
+      <children class="Task" use="yes"/>
+      <children class="Condition" use="no"/>
+      <description text="Tries to execute all of its children simultaneously. If any child fails then ParallelSequence fails too."/>
+      <shape name="parallel_sequence"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Composite" name="RandomSequence">
+      <children class="Task" use="yes"/>
+      <children class="Condition" use="no"/>
+      <description text="Tries to execute a random child and if it finishes with SUCCESS, then tries to execute another (unselected) child, and so on. If any child fails then RandomSequence fails too."/>
+      <shape name="random_sequence"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Decorator" name="AlwaysFail">
+        <children class="Task" use="yes"/>
+        <children class="Condition" use="yes"/>
+        <description text="Executes its child and fails regardless of the result."/>
+        <shape name="triangle"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Decorator" name="AlwaysSucceed">
+        <children class="Task" use="yes"/>
+        <children class="Condition" use="yes"/>
+        <description text="Executes its child and succeeds regardless of the result."/>
+        <shape name="triangle"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Decorator" name="Not">
+        <children class="Task" use="yes"/>
+        <children class="Condition" use="yes"/>
+        <description text="Executes its child and returns the opposite of the result -- SUCCESS -> FAILURE or FAILURE -> SUCCESS. Any other result is passed transparently."/>
+        <shape name="triangle"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Decorator" name="UntilFailure">
+        <children class="Task" use="yes"/>
+        <children class="Condition" use="yes"/>
+        <description text="Executes its child repeatedly until the child fails, and then returns the non-successful result."/>
+        <shape name="triangle"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Decorator" name="UntilSuccess">
+        <children class="Task" use="yes"/>
+        <children class="Condition" use="yes"/>
+        <description text="Executes its child repeatedly until the child doesn't fail and returns the non-failure result."/>
+        <shape name="triangle"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Decorator" name="LookForTarget">
+        <children class="Task" use="yes"/>
+        <children class="Condition" use="yes"/>
+        <description text="Finds and sets a target for use in the child. Tries multiple target prospects until a non-failure result is returned and returns that result. If no non-failures are returned or no targets are found, failure is returned."/>
+        <shape name="triangle"/>
+        <events/>
+    </node>
+    <!---->
+    <!-- ********************************************************************************************************* -->
+    <!-- CONDITIONS -->
+    <node class="Condition" type="Single" name="CheckPosture">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text="Returns SUCCESS if postures is the same as condition."/>
+      <shape name="diamond"/>
+      <attribute type="string" name="condition" default="UPRIGHT" available="INVALID;UPRIGHT;CROUCHED;PRONE;SNEAKING;BLOCKING;CLIMBING;FLYING;LYINGDOWN;SITTING;SKILLANIMATING;DRIVINGVEHICLE;RIDINGCREATURE;KNOCKEDDOWN;INCAPACITATED;DEAD" description="Posture enumerations."/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckDestination">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text="Check is in range {x} from destination."/>
+      <shape name="diamond"/>
+      <attribute type="float" name="condition" default="0" description="Check distance for destination."/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckFollowState">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text="Returns SUCCESS if follow state is the same as condition."/>
+      <shape name="diamond"/>
+      <attribute type="string" name="condition" default="OBLIVIOUS" available="OBLIVIOUS;WATCHING;STALKING;FOLLOWING;PATROLLING;FLEEING;LEASHING" description="Follow state enumerations."/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckHasFollow">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text="Returns SUCCESS if the follow object exists."/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckFollowHasState">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text="Returns SUCCESS if the follow object's creature state is the same as condition."/>
+      <shape name="diamond"/>
+      <attribute type="string" name="condition" default="PEACE" available="INVALID;COVER;COMBAT;PEACE;AIMING;ALERT;BERSERK;FEIGNDEATH;COMBATATTITUDEEVASIVE;COMBATATTITUDENORMAL;COMBATATTITUDEAGGRESSIVE;TUMBLING;RALLIED;STUNNED;BLINDED;DIZZYINTIMIDATED;IMMOBILIZED;FROZEN;SWIMMING;SITTINGONCHAIR;CRAFTING;GLOWINGJEDI;MASKSCENT;POISONED;BLEEDING;DISEASED;ONFIRE;RIDINGMOUNT;MOUNTEDCREATURE;PILOTINGSHIP;SHIPOPERATIONS;SHIPGUNNER;SHIPINTERIOR;PILOTINGPOBSHIP" description="Creature state enumerations."/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckProspectInRange">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text="Returns SUCCESS if the prospective target is in range."/>
+      <shape name="diamond"/>
+      <attribute type="float" name="condition" default="0" description="Check distance for destination."/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckFollowAggression">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text="Returns SUCCESS if follow is aggressive to self."/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckProspectAggression">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text="Returns SUCCESS if prospective target is aggressive to self."/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckFollowPosture">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text="Returns SUCCESS if follow posture is the same as condition."/>
+      <shape name="diamond"/>
+      <attribute type="string" name="condition" default="UPRIGHT" available="INVALID;UPRIGHT;CROUCHED;PRONE;SNEAKING;BLOCKING;CLIMBING;FLYING;LYINGDOWN;SITTING;SKILLANIMATING;DRIVINGVEHICLE;RIDINGCREATURE;KNOCKEDDOWN;INCAPACITATED;DEAD" description="Posture enumerations."/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckFollowInWeaponRange">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text="Returns SUCCESS if the condition's range is greater than the followRange written to the blackboard."/>
+      <shape name="diamond"/>
+      <attribute type="string" name="condition" default="DEFAULT" available="WEAPON;DEFAULT;RANDOM" description="Weapon enumerations."/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckFollowClosestIdealRange">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text=""/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckRandomLevel">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text=""/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckAttackInRange">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text=""/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckAttackIsValid">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text=""/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckTargetIsValid">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text=""/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckRetreat">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text=""/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckSpeed">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text=""/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckProspectSpeed">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text=""/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckProspectLOS">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text=""/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckOutdoors">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text=""/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckProspectLevel">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text=""/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckProspectBackAggression">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text=""/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckProspectFacing">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text=""/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckPetCommand">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text=""/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckProspectIsCommand">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text=""/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckIsInCombat">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text=""/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
+    <!-- ********************************************************************************************************* -->
+    <!-- LEAFS -->
+    <node class="Task" type="Leaf" name="Dummy">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="GeneratePatrol">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="ExitCombat">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="EquipStagedWeapon">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="WriteBlackboard">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="EraseBlackboard">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="SelectAttack">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="EnqueueAttack">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="GetProspectFromThreatMap">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="GetProspectFromDefenders">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="GetProspectFromTarget">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="GetProspectFromCommand">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="RestoreFollow">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="DropProspectFromDefenders">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="SetDefenderFromProspect">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="UpdateRangeToFollow">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="SetFollowState">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="CalculateAggroMod">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="RunAway">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="FindNextPosition">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="Leash">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="CompleteMove">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="Wait">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <node class="Task" type="Leaf" name="SetAlert">
+        <children class="Task" use="no"/>
+        <children class="Condition" use="no"/>
+        <description text=""/>
+        <shape name="ring"/>
+        <events/>
+    </node>
+    <!---->
+    <!-- ********************************************************************************************************* -->
+  </library>
+  <!-- ====================================================================================================================== -->
+</LibData>

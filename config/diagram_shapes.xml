@@ -6,6 +6,11 @@
 		<ConnectorPoints hor_x="16" hor_y="0" vert_x="0" vert_y="16"/>
 	</VecShape>
 	<!-- ********************************************************************************** -->
+	<VecShape Name="hexagon" Sign="hexagon.pp" Scale="0.75">
+		<ConnectorPoints hor_x="-16" hor_y="0" vert_x="0" vert_y="-16"/>
+		<ConnectorPoints hor_x="16" hor_y="0" vert_x="0" vert_y="16"/>
+	</VecShape>
+    <!-- ********************************************************************************** -->
 	<VecShape Name="diamond" Sign="diamond.pp" Scale="0.75">
 		<ConnectorPoints hor_x="-16" hor_y="0" vert_x="0" vert_y="-16"/>
 		<ConnectorPoints hor_x="16" hor_y="0" vert_x="0" vert_y="16"/>
@@ -66,7 +71,27 @@
 		<ConnectorPoints hor_x="16" hor_y="0" vert_x="0" vert_y="16"/>
 	</VecShape>
 	<!-- ********************************************************************************** -->
+	<VecShape Name="parallel_selector" Sign="parallel_selector.pp" Scale="0.75">
+		<ConnectorPoints hor_x="-16" hor_y="0" vert_x="0" vert_y="-16"/>
+		<ConnectorPoints hor_x="16" hor_y="0" vert_x="0" vert_y="16"/>
+	</VecShape>
+	<!-- ********************************************************************************** -->
+	<VecShape Name="random_selector" Sign="random_selector.pp" Scale="0.75">
+		<ConnectorPoints hor_x="-16" hor_y="0" vert_x="0" vert_y="-16"/>
+		<ConnectorPoints hor_x="16" hor_y="0" vert_x="0" vert_y="16"/>
+	</VecShape>
+	<!-- ********************************************************************************** -->
 	<VecShape Name="sequence" Sign="sequence.pp" Scale="0.75">
+		<ConnectorPoints hor_x="-16" hor_y="0" vert_x="0" vert_y="-16"/>
+		<ConnectorPoints hor_x="16" hor_y="0" vert_x="0" vert_y="16"/>
+	</VecShape>
+	<!-- ********************************************************************************** -->
+	<VecShape Name="parallel_sequence" Sign="parallel_sequence.pp" Scale="0.75">
+		<ConnectorPoints hor_x="-16" hor_y="0" vert_x="0" vert_y="-16"/>
+		<ConnectorPoints hor_x="16" hor_y="0" vert_x="0" vert_y="16"/>
+	</VecShape>
+	<!-- ********************************************************************************** -->
+	<VecShape Name="random_sequence" Sign="random_sequence.pp" Scale="0.75">
 		<ConnectorPoints hor_x="-16" hor_y="0" vert_x="0" vert_y="-16"/>
 		<ConnectorPoints hor_x="16" hor_y="0" vert_x="0" vert_y="16"/>
 	</VecShape>
