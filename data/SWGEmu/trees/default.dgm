@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <BehaviorTree version="1.3.0">
-	<Node expanded="1" hAuto="1" hx="0.0" hy="0.0" sceneX="0.0" sceneY="0.0" uid="624434239" vAuto="1" vx="0.0" vy="0.0"/>
+	<Node expanded="1" hAuto="1" hx="0.0" hy="0.0" sceneX="0.0" sceneY="-150.0" uid="624434239" vAuto="1" vx="0.0" vy="0.0">
+		<Node expanded="1" hAuto="1" hx="0.0" hy="0.0" sceneX="-60.7109375" sceneY="-79.5" uid="179110680" vAuto="1" vx="-60.7109375" vy="70.5">
+			<Condition expanded="1" hAuto="1" hx="0.0" hy="0.0" sceneX="-126.0" sceneY="21.0" uid="3860765791" vAuto="1" vx="0.0" vy="0.0"/>
+		</Node>
+		<Node expanded="1" hAuto="1" hx="0.0" hy="0.0" sceneX="36.1171875" sceneY="-79.5" uid="1157409711" vAuto="1" vx="36.1171875" vy="70.5"/>
+	</Node>
 </BehaviorTree>
