@@ -843,7 +843,11 @@ class MainWindow(QMainWindow):
         settings.endGroup()
 
         settings.beginGroup('recentProjects')
-        settings.setValue('list', globals.recentProjects)
+        settings.beginWriteArray('list')
+        for i in range(len(globals.recentProjects)):
+            settings.setArrayIndex(i)
+            settings.setValue('recent', globals.recentProjects[i])
+        settings.endArray()
         settings.endGroup()
 
     def readSettings(self):
@@ -981,7 +985,12 @@ class MainWindow(QMainWindow):
             settings.endGroup()
 
             settings.beginGroup('recentProjects')
-            recentList = settings.value('list')
+            size = settings.beginReadArray('list')
+            recentList = []
+            for i in range(size):
+                settings.setArrayIndex(i)
+                recentList.append(settings.value('recent'))
+            settings.endArray()
             if recentList is not None:
                 globals.recentProjects = recentList
             settings.endGroup()

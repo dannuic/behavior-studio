@@ -43,6 +43,7 @@ from xml.dom.minidom import parse, Document
 from auxtypes import processString, toUnixPath
 
 import treenode
+from project.luaparser import LuaParser, LuaTree, LuaNode
 from treeview.dispregime import DisplayRegime
 from PySide.QtCore import QPointF
 
@@ -511,6 +512,7 @@ class TreeParser(object):
         # main xml document
         doc = Document()
         diagramDoc = Document()
+        luaDoc = []
 
         # add main xml tag inside document
         main = doc.createElement(projectAlphabet.headerTree)
@@ -520,6 +522,8 @@ class TreeParser(object):
         diagramMain = diagramDoc.createElement(projectAlphabet.headerTree)
         diagramMain.setAttribute('version', globals.strVersion)
         diagramDoc.appendChild(diagramMain)
+
+        # no main tag for lua docs
 
         treelist = projectTrees.getBranchesByFile(filename, projectNodes)
         external_files = []
@@ -561,6 +565,7 @@ class TreeParser(object):
 
         sorted_names.sort()
         done_list = {}
+        lua_list = []
         num = 0
         num_trees = len(treelist)
         while len(done_list) < num_trees and num < num_trees:
@@ -578,6 +583,8 @@ class TreeParser(object):
                     # this branch depends on some other branch that have not been added to xml yet
                     continue
                 done_list[t] = self.__saveNode(filename, doc, main, treelist[t], diagramDoc, diagramMain)
+                lua_list.append(LuaTree(treelist[t].root().refname(),
+                                        self.__saveLuaData(treelist[t])))
             num += 1
 
         # saving xml document to file
@@ -591,6 +598,10 @@ class TreeParser(object):
         diagram_file = open(diagram_filename, 'wb')
         diagram_file.write(diagramDoc.toprettyxml('\t', '\n', 'utf-8'))
         diagram_file.close()
+
+        # saving lua document to file
+        lua_filename = fname + '.lua'
+        LuaParser().write(lua_list, lua_filename)
 
         return True
 
@@ -772,6 +783,36 @@ class TreeParser(object):
                             break
 
         return curr
+
+    def __saveLuaData(self, treeNode):
+        if treeNode.parent() is not None:
+            pid = str(treeNode.parent().uid())
+        else:
+            pid = 'none'
+
+        args = {}
+        for name, attr in treeNode.attributes().items():
+            if attr.attrDesc().typeName() == 'string':
+                args[name] = '"' + str(attr.valueToStr()) + '"'
+            else:
+                args[name] = str(attr.valueToStr())
+
+        entry = LuaNode(str(treeNode.uid()), str(treeNode.nodeName), pid, **args)
+
+        if treeNode.nodeDesc() is not None:
+            ccc = []
+            for c in treeNode.allChildren():
+                if c in treeNode.nodeDesc().childClasses and c in treeNode.type():
+                    ccc.append(c)
+            ccc.sort()
+            children = [treeNode.children(c) for c in ccc]
+            retVal = [entry]
+            for child in children:
+                for c in child:
+                    retVal = retVal + self.__saveLuaData(c)
+            return retVal
+        else:
+            return [entry]
 
     def __saveDigramData(self, uid, diagramInfo, diagramNode):
         diagramNode.setAttribute('uid', str(uid))
