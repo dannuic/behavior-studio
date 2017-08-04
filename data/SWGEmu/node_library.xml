@@ -136,8 +136,8 @@
       <events/>
     </node>
     <!---->
-    <node class="Task" type="Decorator" name="If">
-      <children class="Task" use="yes"/>
+    <node class="Task" type="Leaf" name="If">
+      <children class="Task" use="no"/>
       <children class="Condition" use="yes"/>
       <description text="Just passes the result of the child."/>
       <shape name="triangle"/>
@@ -506,7 +506,7 @@
       <description text="Checks to see if targetProspect on blackboard has speed above condition."/>
       <shape name="diamond"/>
       <events/>
-      <attribute type="float" name="condition" description="Speed to be above."/>
+      <attribute type="text" name="condition" default="STATIONARY" available="STATIONARY;SLOW;FAST" description="Speed to be above."/>
     </node>
     <!---->
     <node class="Condition" type="Single" name="CheckRandomLevel">

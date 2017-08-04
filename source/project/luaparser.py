@@ -42,7 +42,7 @@ import regex as re
 
 def matchNamedBrackets(matchString):
     # interestingly, this could also work but apparently returns 3 empty
-    # strings at the beginning of the tuple -- I guess the define is
+    # strings at the beginning of the tuple -- I guess the ?DEFINE is
     # "capturing"?
     #reg = '(?(DEFINE)(?P<b>({((?>[^{}]|(?P>b))*)})))(\w+)\s*=\s*{((?>[^{}]|(?P>b))*)}'
 
@@ -113,15 +113,16 @@ class LuaParser(object):
         l = matchBrackets(text)
         return l
 
-    def write(self, trees, filename):
+    def write(self, trees, filename, suffix):
         try:
             with open(filename, 'w') as f:
                 for tree in trees:
-                    f.write(tree.name + ' = {\n')
+                    className = tree.name + suffix
+                    f.write(className + ' = {\n')
                     print(tree.nodes)
                     f.write(',\n'.join([node.mkString() for node in tree.nodes]))
-                    f.write('}\naddAiTemplate("' + tree.name + '", ' +
-                            tree.name + ')\n\n')
+                    f.write('}\naddAiTemplate("' + className + '", ' +
+                            className + ')\n\n')
         except EnvironmentError as error:
             print('error: Cannot open filename {0} with error {1}'.format(filename, error))
             print('')

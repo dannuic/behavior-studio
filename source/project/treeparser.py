@@ -600,8 +600,8 @@ class TreeParser(object):
         diagram_file.close()
 
         # saving lua document to file
-        lua_filename = fname + '.lua'
-        LuaParser().write(lua_list, lua_filename)
+        LuaParser().write(lua_list, fname + '.lua',
+                          os.path.basename(fname).title())
 
         return True
 

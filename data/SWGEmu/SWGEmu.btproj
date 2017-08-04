@@ -4,4 +4,8 @@
 	<shapelib path="../../config/diagram_shapes.xml"/>
 	<library path="node_library.xml"/>
 	<behavior_tree path="trees/default.xml"/>
+	<behavior_tree path="trees/test.xml"/>
+	<behavior_tree path="trees/pet.xml"/>
+	<behavior_tree path="trees/static.xml"/>
+	<behavior_tree path="trees/escort.xml"/>
 </btproject>
