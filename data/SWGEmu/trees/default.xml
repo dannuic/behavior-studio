@@ -39,7 +39,7 @@
 			</Node>
 		</Node>
 		<Node Lib="SWGEmuNodes" Name="SelectAttack" Type="Leaf" uid="2329787886">
-			<Settings attackNum="0"/>
+			<Settings attackNum="-1"/>
 		</Node>
 		<Node Lib="SWGEmuNodes" Name="EnqueueAttack" Type="Leaf" uid="180351178">
 			<Settings/>
@@ -67,7 +67,7 @@
 					<Settings key="attackType" val="DEFAULT"/>
 				</Node>
 				<Node Lib="SWGEmuNodes" Name="SelectAttack" Type="Leaf" uid="2582933389">
-					<Settings attackNum="0"/>
+					<Settings attackNum="-1"/>
 				</Node>
 				<Node Lib="SWGEmuNodes" Name="EnqueueAttack" Type="Leaf" uid="2327622682">
 					<Settings/>

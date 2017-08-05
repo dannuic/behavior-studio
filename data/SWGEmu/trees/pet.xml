@@ -178,6 +178,9 @@
 					</Node>
 				</Node>
 			</Node>
+			<Node Lib="SWGEmuNodes" Name="SetDefenderFromProspect" Type="Leaf" uid="2191514309">
+				<Settings/>
+			</Node>
 		</Node>
 		<Node Lib="SWGEmuNodes" Name="AlwaysFail" Type="Decorator" uid="31729507">
 			<Settings/>

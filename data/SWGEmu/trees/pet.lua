@@ -65,6 +65,7 @@ targetPet = {
 	{id="532716569",	name="Sequence",	pid="734829524"},
 	{id="2355980134",	name="DropProspectFromDefenders",	pid="532716569"},
 	{id="3244187974",	name="EraseBlackboard",	pid="532716569",	args={param="targetProspect"}},
+	{id="2191514309",	name="SetDefenderFromProspect",	pid="564148782"},
 	{id="31729507",	name="AlwaysFail",	pid="2727643421"},
 	{id="3430063290",	name="ExitCombat",	pid="31729507",	args={clearDefenders=1}}}
 addAiTemplate("targetPet", targetPet)
