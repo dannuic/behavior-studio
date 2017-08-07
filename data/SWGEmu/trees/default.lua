@@ -87,7 +87,7 @@ lookDefault = {
 	{id="1650016708",	name="If",	pid="2391667584"},
 	{id="638753146",	name="CheckProspectLOS",	pid="1650016708"},
 	{id="4076527471",	name="SetFollowState",	pid="2391667584",	args={state=WATCHING}},
-	{id="1583995406",	name="SetAlert",	pid="2391667584",	args={duration=10.0, show=1}}}
+	{id="1583995406",	name="SetAlert",	pid="2391667584",	args={show=1, duration=10.0}}}
 addAiTemplate("lookDefault", lookDefault)
 
 moveDefault = {
@@ -102,11 +102,6 @@ moveDefault = {
 	{id="361808887",	name="If",	pid="1049607122"},
 	{id="1901811754",	name="CheckRetreat",	pid="361808887",	args={condition=256}},
 	{id="4131275375",	name="Leash",	pid="1049607122"},
-	{id="3696900346",	name="AlwaysFail",	pid="95757095"},
-	{id="3025863402",	name="Sequence",	pid="3696900346"},
-	{id="3921269820",	name="If",	pid="3025863402"},
-	{id="3407787245",	name="CheckSpeed",	pid="3921269820",	args={condition=0.0}},
-	{id="504852540",	name="CompleteMove",	pid="3025863402"},
 	{id="3690551020",	name="FindNextPosition",	pid="95757095"}}
 addAiTemplate("moveDefault", moveDefault)
 
@@ -114,11 +109,14 @@ rootDefault = {
 	{id="714360210",	name="Selector",	pid="none"},
 	{id="4192507528",	name="Sequence",	pid="714360210"},
 	{id="112941615",	name="TreeSocket",	pid="4192507528",	args={slot=TARGET}},
-	{id="1725823643",	name="TreeSocket",	pid="4192507528",	args={slot=EQUIP}},
-	{id="3241201955",	name="TreeSocket",	pid="4192507528",	args={slot=ATTACK}},
-	{id="1864099925",	name="WriteBlackboard",	pid="4192507528",	args={key="moveMode", val=RUN}},
-	{id="870881797",	name="AlwaysSucceed",	pid="4192507528"},
-	{id="3293660871",	name="TreeSocket",	pid="870881797",	args={slot=MOVE}},
+	{id="1711463331",	name="ParallelSelector",	pid="4192507528"},
+	{id="3085594992",	name="Sequence",	pid="1711463331"},
+	{id="2197461733",	name="TreeSocket",	pid="3085594992",	args={slot=EQUIP}},
+	{id="1754584012",	name="TreeSocket",	pid="3085594992",	args={slot=ATTACK}},
+	{id="3434357109",	name="Sequence",	pid="1711463331"},
+	{id="2676240638",	name="WriteBlackboard",	pid="3434357109",	args={key="moveMode", val=RUN}},
+	{id="4148461600",	name="AlwaysSucceed",	pid="3434357109"},
+	{id="4224133747",	name="TreeSocket",	pid="4148461600",	args={slot=MOVE}},
 	{id="3497802169",	name="TreeSocket",	pid="714360210",	args={slot=AWARE}},
 	{id="1848102505",	name="TreeSocket",	pid="714360210",	args={slot=IDLE}}}
 addAiTemplate("rootDefault", rootDefault)
@@ -138,7 +136,7 @@ scareDefault = {
 	{id="3009279984",	name="If",	pid="9692099"},
 	{id="1391512006",	name="CheckProspectLOS",	pid="3009279984"},
 	{id="2633134651",	name="RunAway",	pid="9692099",	args={dist=64.0}},
-	{id="3135988450",	name="SetAlert",	pid="9692099",	args={duration=10.0, show=0}}}
+	{id="3135988450",	name="SetAlert",	pid="9692099",	args={show=0, duration=10.0}}}
 addAiTemplate("scareDefault", scareDefault)
 
 targetDefault = {
@@ -174,6 +172,8 @@ addAiTemplate("targetDefault", targetDefault)
 wanderDefault = {
 	{id="1564905074",	name="Selector",	pid="none"},
 	{id="4029863740",	name="Sequence",	pid="1564905074"},
+	{id="3655407871",	name="If",	pid="4029863740"},
+	{id="523920708",	name="CheckHasPatrol",	pid="3655407871"},
 	{id="536389142",	name="WriteBlackboard",	pid="4029863740",	args={key="moveMode", val=WALK}},
 	{id="3269636266",	name="TreeSocket",	pid="4029863740",	args={slot=MOVE}},
 	{id="2038642946",	name="Wait",	pid="4029863740",	args={duration=10.0}},

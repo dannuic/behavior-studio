@@ -409,6 +409,14 @@
       <events/>
     </node>
     <!---->
+    <node class="Condition" type="Single" name="CheckHasPatrol">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="no"/>
+      <description text="Checks to see if self has any patrol points defined."/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
     <node class="Condition" type="Single" name="CheckIsInCombat">
       <children class="Task" use="no"/>
       <children class="Condition" use="yes"/>
