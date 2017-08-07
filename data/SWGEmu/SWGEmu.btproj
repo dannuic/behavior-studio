@@ -8,4 +8,7 @@
 	<behavior_tree path="trees/pet.xml"/>
 	<behavior_tree path="trees/static.xml"/>
 	<behavior_tree path="trees/escort.xml"/>
+	<behavior_tree path="trees/deathWatch.xml"/>
+	<behavior_tree path="trees/enclaveSentinel.xml"/>
+	<behavior_tree path="trees/villageRaider.xml"/>
 </btproject>

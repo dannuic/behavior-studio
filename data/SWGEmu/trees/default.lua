@@ -177,6 +177,6 @@ wanderDefault = {
 	{id="536389142",	name="WriteBlackboard",	pid="4029863740",	args={key="moveMode", val=WALK}},
 	{id="3269636266",	name="TreeSocket",	pid="4029863740",	args={slot=MOVE}},
 	{id="2038642946",	name="Wait",	pid="4029863740",	args={duration=10.0}},
-	{id="2390998747",	name="GeneratePatrol",	pid="1564905074",	args={distFromHome=10.0, numPoints=5}}}
+	{id="2390998747",	name="GeneratePatrol",	pid="1564905074",	args={numPoints=5, distFromHome=10.0}}}
 addAiTemplate("wanderDefault", wanderDefault)
 

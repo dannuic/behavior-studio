@@ -492,6 +492,23 @@
       <events/>
     </node>
     <!---->
+    <node class="Condition" type="Single" name="CheckProspectIsType">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text="Check the target prospect against the type specified."/>
+      <shape name="diamond"/>
+      <events/>
+      <attribute type="text" name="condition" default="PLAYER" available="PLAYER;CREATURE;NPC;TANGIBLE;AGENT" description=""/>
+    </node>
+    <!---->
+    <node class="Condition" type="Single" name="CheckProspectJediTrial">
+      <children class="Task" use="no"/>
+      <children class="Condition" use="yes"/>
+      <description text="Check that the player is on the appropriate jedi trial. Very specific use."/>
+      <shape name="diamond"/>
+      <events/>
+    </node>
+    <!---->
     <node class="Condition" type="Single" name="CheckProspectLOS">
       <children class="Task" use="no"/>
       <children class="Condition" use="yes"/>
